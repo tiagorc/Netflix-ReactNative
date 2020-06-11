@@ -9,15 +9,8 @@ import styled from "styled-components/native";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Movies from "../components/Movies";
-
-import Geolocation from "@react-native-community/geolocation";
-
-const api = [
-  require("../assets/movies/movie1.jpg"),
-  require("../assets/movies/movie2.jpg"),
-  require("../assets/movies/movie3.jpg"),
-  require("../assets/movies/movie4.jpg"),
-];
+import { filterByCountry, getLocation } from "../services/movieFilter";
+import { useState, useEffect } from "react";
 
 const Container = styled.ScrollView`
   flex: 1;
@@ -33,20 +26,30 @@ const Gradient = styled(LinearGradient)`
   height: 100%;
 `;
 
-function getLocation() {
-  return new Promise((resolve, reject) => {
-    Geolocation.getCurrentPosition((location) => {
-      console.log("location", location);
-      resolve(location);
-    }),
-      (error) => {
-        reject();
-      };
-  });
-}
-
 const Home = () => {
-  getLocation();
+  const [movies, setMovies] = useState([]);
+  const [nationalMovies, setNationalMovies] = useState([]);
+
+  useEffect(() => {
+    const loadingMovies = async () => {
+      const moviesJson = require("../assets/Movies.json");
+      const position = await getLocation();
+      const nationalMovies = await filterByCountry(moviesJson, position);
+      setNationalMovies(nationalMovies);
+
+      const nationalMoviesTitles = nationalMovies.map(
+        (item, index) => item.Title
+      );
+
+      moviesWithoutNationals = moviesJson.filter((item, index) => {
+        return !nationalMoviesTitles.includes(item.Title);
+      });
+
+      setMovies(moviesWithoutNationals);
+    };
+    loadingMovies();
+  }, []);
+
   return (
     <>
       <StatusBar
@@ -69,8 +72,8 @@ const Home = () => {
             <Hero />
           </Gradient>
         </Poster>
-        <Movies label="Recomendados" item={api} />
-        <Movies label="Top 10" item={api} />
+        <Movies label="Recomendados" item={movies} />
+        <Movies label="Nacionais" item={nationalMovies} />
       </Container>
     </>
   );
