@@ -3,7 +3,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest test"
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
@@ -17,6 +18,7 @@
     "expo": "^37.0.0",
     "expo-updates": "~0.1.0",
     "i18n-js": "^3.7.0",
+    "jest-expo": "^37.0.0",
     "react": "~16.9.0",
     "react-dom": "16.9.0",
     "react-native": "~0.61.5",
@@ -40,6 +42,25 @@
     "babel-preset-expo": "^8.1.0",
     "jest": "~25.2.6",
     "react-test-renderer": "~16.9.0"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__/coverage/"
+    ],
+    "coverageDirectory": "__tests__/coverage/",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
   },
   "private": true
 }
