@@ -74,6 +74,7 @@ const Home = () => {
         </Poster>
         <Movies label="Recomendados" item={movies} />
         <Movies label="Nacionais" item={nationalMovies} />
+        <Movies label="Continuar assistindo como XXXX" item={[]} />
       </Container>
     </>
   );

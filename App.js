@@ -11,38 +11,57 @@ import ProfileToEdit from "./screen/ProfileToEdit";
 
 const Stack = createStackNavigator();
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Tabs"
-          component={Tabs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Camera"
-          component={Camera}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ChooseIcon"
-          component={ChooseIcon}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="More"
-          component={More}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ProfileToEdit"
-          component={ProfileToEdit}
-          options={{ headerShown: true }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    setLanguageToI18n();
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Tabs"
+            component={Tabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Camera"
+            component={Camera}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChooseIcon"
+            component={ChooseIcon}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="More"
+            component={More}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProfileToEdit"
+            component={ProfileToEdit}
+            options={{ headerShown: true }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-export default App;
+export const setLanguageToI18n = () => {
+  // const language = getLanguageByDevice();
+  // console.log("language: ", language);
+  // const translateNormalize = normalizeTranslate[language];
+  // const languageExists = I18n.translations.hasOwnProperty(translateNormalize);
+  // languageExists
+  //   ? (I18n.locale = translateNormalize)
+  //   : (I18n.defaultLocale = "pt-BR");
+  // 01;
+  // 52;
+  // 57;
+};
