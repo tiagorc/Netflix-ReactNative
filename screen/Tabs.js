@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Home from "./Home";
 import More from "./More";
+import { translate } from "../languages/utils";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ export default function Tabs() {
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: "Início",
+          tabBarLabel: translate("home"),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
@@ -32,7 +33,7 @@ export default function Tabs() {
         name="Search"
         component={Home}
         options={{
-          tabBarLabel: "Busca",
+          tabBarLabel: translate("search"),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="magnify" size={size} color={color} />
           ),
@@ -42,7 +43,7 @@ export default function Tabs() {
         name="Soon"
         component={Home}
         options={{
-          tabBarLabel: "Em breve",
+          tabBarLabel: translate("soon"),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="library-movie"
@@ -56,7 +57,7 @@ export default function Tabs() {
         name="Downloads"
         component={Home}
         options={{
-          tabBarLabel: "Downloads",
+          tabBarLabel: translate("downloads"),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="download" size={size} color={color} />
           ),
@@ -66,7 +67,7 @@ export default function Tabs() {
         name="Mais"
         component={More}
         options={{
-          tabBarLabel: "Mais",
+          tabBarLabel: translate("more"),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="view-list"

@@ -8,7 +8,7 @@ import More from "./screen/More";
 import Camera from "./screen/Camera";
 import ChooseIcon from "./screen/ChooseIcon";
 import ProfileToEdit from "./screen/ProfileToEdit";
-import { getLanguageByDevice } from "./languages/utils";
+import { configureI18n } from "./languages/utils";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +16,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    setLanguageToI18n();
+    configureI18n();
   }
 
   render() {
@@ -53,18 +53,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-export const setLanguageToI18n = () => {
-  // const language = getLanguageByDevice();
-  // console.log("language: ", language);
-  // const translateNormalize = normalizeTranslate[language];
-  // const languageExists = I18n.translations.hasOwnProperty(translateNormalize);
-  // languageExists
-  //   ? (I18n.locale = translateNormalize)
-  //   : (I18n.defaultLocale = "pt-BR");
-  // 01;
-  // 56;
-  // 31;
-};
-
-export const translate = (key) => I18n.t(key);
