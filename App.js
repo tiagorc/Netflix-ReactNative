@@ -8,6 +8,7 @@ import More from "./screen/More";
 import Camera from "./screen/Camera";
 import ChooseIcon from "./screen/ChooseIcon";
 import ProfileToEdit from "./screen/ProfileToEdit";
+import { getLanguageByDevice } from "./languages/utils";
 
 const Stack = createStackNavigator();
 
@@ -62,6 +63,8 @@ export const setLanguageToI18n = () => {
   //   ? (I18n.locale = translateNormalize)
   //   : (I18n.defaultLocale = "pt-BR");
   // 01;
-  // 52;
-  // 57;
+  // 56;
+  // 31;
 };
+
+export const translate = (key) => I18n.t(key);
