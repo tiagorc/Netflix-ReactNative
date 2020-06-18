@@ -11,6 +11,7 @@ import Hero from "../components/Hero";
 import Movies from "../components/Movies";
 import { filterByCountry, getLocation } from "../services/movieFilter";
 import { useState, useEffect } from "react";
+import { ProfileContext } from "../context/ProfileContext";
 
 const Container = styled.ScrollView`
   flex: 1;
@@ -50,33 +51,50 @@ const Home = () => {
     loadingMovies();
   }, []);
 
+  getResumeMovie = (user) => {
+    const moviesToResume = require("../assets/MoviesToResume.json");
+    return moviesToResume[user];
+  };
+
   return (
-    <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      <Container>
-        <Poster source={require("../assets/poster.jpg")}>
-          <Gradient
-            locations={[0, 0.2, 0.6, 0.93]}
-            colors={[
-              "rgba(0,0,0,0.5)",
-              "rgba(0,0,0,0.0)",
-              "rgba(0,0,0,0.0)",
-              "rgba(0,0,0,1)",
-            ]}
-          >
-            <Header />
-            <Hero />
-          </Gradient>
-        </Poster>
-        <Movies label="Recomendados" item={movies} />
-        <Movies label="Nacionais" item={nationalMovies} />
-        <Movies label="Continuar assistindo como XXXX" item={[]} />
-      </Container>
-    </>
+    <ProfileContext.Consumer>
+      {({ user, changeProfile }) => (
+        <>
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle="light-content"
+          />
+          <Container>
+            <Poster source={require("../assets/poster.jpg")}>
+              <Gradient
+                locations={[0, 0.2, 0.6, 0.93]}
+                colors={[
+                  "rgba(0,0,0,0.5)",
+                  "rgba(0,0,0,0.0)",
+                  "rgba(0,0,0,0.0)",
+                  "rgba(0,0,0,1)",
+                ]}
+              >
+                <Header />
+                <Hero />
+              </Gradient>
+            </Poster>
+            <Movies label="Recomendados" item={movies} />
+
+            {nationalMovies.length > 0 && (
+              <Movies label="Nacionais" item={nationalMovies} />
+            )}
+            {user && (
+              <Movies
+                label={`Continuar assistindo como ${user}`}
+                item={getResumeMovie(user)}
+              />
+            )}
+          </Container>
+        </>
+      )}
+    </ProfileContext.Consumer>
   );
 };
 
