@@ -30,26 +30,45 @@ const Gradient = styled(LinearGradient)`
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [nationalMovies, setNationalMovies] = useState([]);
+  const [position, setPosition] = useState(null);
+
+  useEffect(() => {
+    const getActualLocation = async () => {
+      try {
+        const result = await getLocation();
+        setPosition(result);
+      } catch (error) {
+        console.log("error getting location");
+      }
+    };
+    getActualLocation();
+  }, []);
 
   useEffect(() => {
     const loadingMovies = async () => {
       const moviesJson = require("../assets/Movies.json");
-      const position = await getLocation();
-      const nationalMovies = await filterByCountry(moviesJson, position);
-      setNationalMovies(nationalMovies);
+
+      try {
+        if (position !== null) {
+          const nationalMovies = await filterByCountry(moviesJson, position);
+          setNationalMovies(nationalMovies);
+        }
+      } catch (error) {
+        console.log(error);
+      }
 
       const nationalMoviesTitles = nationalMovies.map(
         (item, index) => item.Title
       );
 
-      moviesWithoutNationals = moviesJson.filter((item, index) => {
+      const moviesWithoutNationals = moviesJson.filter((item, index) => {
         return !nationalMoviesTitles.includes(item.Title);
       });
 
       setMovies(moviesWithoutNationals);
     };
     loadingMovies();
-  }, []);
+  }, [position]);
 
   getResumeMovie = (user) => {
     const moviesToResume = require("../assets/MoviesToResume.json");
@@ -82,7 +101,7 @@ const Home = () => {
             </Poster>
             <Movies label="Recomendados" item={movies} />
 
-            {nationalMovies.length > 0 && (
+            {nationalMovies && nationalMovies.length > 0 && (
               <Movies label="Nacionais" item={nationalMovies} />
             )}
             {user && (
