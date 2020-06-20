@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import Avatar from "../components/Avatar";
-import { View } from "react-native";
+import { AsyncStorage } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ProfileContext } from "../context/ProfileContext";
 
@@ -85,6 +85,7 @@ const replaceAvatarsWithImage = (props, profilesAvailables) => {
 };
 
 const selectProfile = (navigation, item) => {
+  AsyncStorage.setItem("profile", item.name);
   navigation.navigate("Home", { name: item.name });
 };
 
