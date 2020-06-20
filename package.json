@@ -1,4 +1,5 @@
 {
+  "name": "netflix",
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
