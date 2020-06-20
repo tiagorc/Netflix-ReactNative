@@ -21,7 +21,6 @@
     "appcenter-analytics": "3.0.3",
     "appcenter-crashes": "3.0.3",
     "expo": "^37.0.0",
-    "expo-updates": "~0.1.0",
     "i18n-js": "^3.7.0",
     "jest-expo": "^37.0.0",
     "react": "~16.9.0",
