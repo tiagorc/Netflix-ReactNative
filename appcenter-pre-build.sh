@@ -10,4 +10,4 @@ then
 
     echo "File content:"
     cat $GOOGLE_JSON_FILE
-if
+fi
