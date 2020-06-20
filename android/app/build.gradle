@@ -78,7 +78,7 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js",
     enableHermes: false,
-    bundleInRelease: false
+    bundleInRelease: true
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
@@ -153,6 +153,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('app/netflix.jks')
+            storePassword 'APPCENTER_KEYSTORE_PASSWORD'
+            keyAlias 'APPCENTER_KEY_ALIAS'
+            keyPassword 'APPCENTER_KEY_PASSOWRD'
+        }
     }
     buildTypes {
         debug {
@@ -161,7 +167,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
